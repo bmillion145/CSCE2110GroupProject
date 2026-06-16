@@ -10,7 +10,7 @@ struct StudentNode {
     float gpa;
     StudentNode* next;
     // Constructor to initialize a student node
-    StudentNode(int, const string, const string, float);
+    StudentNode(int id, const string& name, const string& major, float gpa);
 };
 
 
