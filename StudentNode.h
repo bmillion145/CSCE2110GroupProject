@@ -16,8 +16,12 @@ struct StudentNode {
     double grade;
     StudentNode* next;
 
-    StudentNode(int i, const string& n, const string& m, double g) 
+    StudentNode(int i, const string& n, const string& m, double g)
         : id(i), name(n), major(m), grade(g), next(nullptr) {}
+
+    string getLine() const {
+        return to_string(id) + " " + name + " " + major + " " + to_string(grade);
+    }
 };
 
 // Linked List class to manage StudentNodes
