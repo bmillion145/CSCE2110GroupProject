@@ -40,7 +40,7 @@ void CampMap::findMe() {
 
 		}
 
-}
+
 	//sends the chords to deCode to get the names of location specified by the characters in 2d array
 	cout << "Location: " << deCode(x, y) <<endl;
 	cout << "Up: " << deCode(x , y -1) <<endl;
