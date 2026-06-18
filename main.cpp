@@ -25,7 +25,7 @@ int main(){
         cout << "1. Campus Map\n";
         cout << "2. Student Management\n";
         cout << "3. Advising Queue\n";
-        cout << "4. Campus Statistics\n";
+        cout << "4. possible function\n";
         cout << "5. Exit\n";
         cout << "\nEnter Choice: ";
 
