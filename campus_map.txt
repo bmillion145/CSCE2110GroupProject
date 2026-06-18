@@ -1,0 +1,7 @@
+5 7
+
+P R B R C R L
+R R R R R R R
+B R C C R B R
+R R R R R R R
+L R B X R C P
