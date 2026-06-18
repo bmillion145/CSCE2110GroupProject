@@ -1,20 +1,17 @@
 #include <iostream>
 #include <fstream>
-
+#include "CampusMap.h"
+#include "StudentNode.h"
 using namespace std;
 
-
-#include <iostream>
-#include <fstream>
-
-using namespace std;
-void campusMapMenu();
-void studentManagementMenu();
+void campusMapMenu(CampMap& campusMap);
+void studentManagementMenu(StudentList& studentList);
 void advisingQueueMenu();
 
 int main(){
-     loadFile();
-    int choice;
+     CampMap campusMap;
+     StudentList studentList;
+     int choice;
 
     do
     {
@@ -33,11 +30,11 @@ int main(){
         {
 
             case 1:
-                campusMapMenu();
+                campusMapMenu(campusMap);
                 break;
 
             case 2:
-                studentManagementMenu();
+                studentManagementMenu(studentList);
                 break;
 
             case 3:
@@ -60,17 +57,139 @@ int main(){
     return 0;
 }
 
-//function to load a file and submenus
+//submenus for each of the main menu options
+void campusMapMenu(CampMap& campusMap)
+{
+    do {
+        cout << "\nCampus Map Menu\n";
+        cout << "1. Load Map\n";
+        cout << "2. Find Location\n";
+        cout << "3. Print Map\n";
+        cout << "4. Return to Main Menu\n";
+        cout << "\nEnter Choice: ";
 
-void campusMapMenu()
-{
-    cout << "\nCampus Map Menu\n";
-    // Implement campus map functionality here
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // campusMap.loadMap();
+                    campusMap.readMapFile();
+                    cout << "Map loaded successfully.\n";
+                break;
+
+            case 2:
+                campusMap.findMe();
+                break;
+
+            case 3:
+                // campusMap.printMap();
+                campusMap.printMap();
+                break;
+
+            case 4:
+                return;
+
+            default:
+                cout << "\nInvalid Choice. Try Again.\n";
+        }
+    } while (true);
 }
-void studentManagementMenu()
-{
-    cout << "\nStudent Management Menu\n";
-    // Implement student management functionality here
+
+
+void studentManagementMenu(StudentList& studentList){
+   do{ 
+        cout << "\nStudent Management Menu\n";
+        cout << "1. Add Student\n";
+        cout << "2. Remove Student\n";
+        cout << "3. Search Student\n";
+        cout << "4. Update Grade\n";
+        cout << "5. Print All Students\n";
+        cout << "6. Return to Main Menu\n";
+        cout << "\nEnter Choice: ";
+
+        int input;
+        cin >> input;
+
+       switch (input) {
+            
+    case 1:{
+        //adding student
+        int id;
+        string name, major;
+        double grade;
+
+        cout << "Enter ID: ";
+        cin >> id;
+
+        cout << "Enter Name: ";
+        cin.ignore();
+        getline(cin, name);
+
+        cout << "Enter Major: ";
+        getline(cin, major);
+
+        cout << "Enter Grade: ";
+        cin >> grade;
+
+        studentList.insert(id, name, major, grade);
+        break;
+    }
+
+    case 2:{
+        // removing student by ID
+        int removeId;
+        cout << "Enter ID of student to remove: ";
+        cin >> removeId;
+        studentList.remove(removeId);
+        cout << "Student removed.\n";
+        break;
+    }
+
+    case 3:{
+        // searching for student by ID
+        int searchId;
+        cout << "Enter ID of student to search: ";
+        cin >> searchId;
+        StudentNode* found = studentList.search(searchId);
+        if (found) {
+            cout << "Student Found: ID: " << found->id
+                 << " | Name: " << found->name
+                 << " | Major: " << found->major
+                 << " | Grade: " << found->grade << "\n";
+        } else {
+            cout << "Student not found.\n";
+        }
+        break;
+    }   
+
+    case 4:{
+        //updates grades
+        int updateId;
+        double newGrade;
+        cout << "Enter ID of student to update grade: ";
+        cin >> updateId;
+        if(studentList.search(updateId)){
+            cout << "Enter new grade: ";
+            cin >> newGrade;
+            studentList.updateGrade(updateId, newGrade);
+            cout << "Grade updated.\n";
+        } else {
+            cout << "Student not found.\n";
+        }
+        break;
+    }
+    case 5:
+        // printing all students
+        studentList.printList();
+        break;
+    case 6:
+        return;
+    default:
+        cout << "\nInvalid Choice. Try Again.\n";
+        break;}
+ } while (true);
+   
 }
 void advisingQueueMenu()
 {
