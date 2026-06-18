@@ -8,7 +8,6 @@ using namespace std;
 #include <fstream>
 
 using namespace std;
-void loadFile();
 void campusMapMenu();
 void studentManagementMenu();
 void advisingQueueMenu();
@@ -61,31 +60,7 @@ int main(){
     return 0;
 }
 
-
-
-
-
 //function to load a file and submenus
-void loadFile()
-{
-    string fileName;
-
-    cout << "Enter filename: ";
-    cin >> fileName;
-
-    ifstream inputFile(fileName);
-
-    if (inputFile.is_open())
-    {
-        cout << "File loaded successfully.\n";
-
-        inputFile.close();
-    }
-    else
-    {
-        cout << "Error opening file.\n";
-    }
-}
 
 void campusMapMenu()
 {
