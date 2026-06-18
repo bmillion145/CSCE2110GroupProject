@@ -80,7 +80,7 @@ public:
     void clear();
     bool isEmpty() const;
 
-    
+
 };
     //handles the retrival and validation of in files
 class FileManager {

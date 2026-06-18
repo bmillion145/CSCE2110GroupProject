@@ -40,7 +40,8 @@ StudentList::StudentList(StudentList&& other) noexcept : head(other.head) {
     other.head = nullptr;
 }
 
-// Move Assignment Operator
+// Move Assignment Operator (commented out for now)
+/*
 StudentList& StudentList::operator=(StudentList&& other) noexcept {
     if (this != &other) {
         clear();
@@ -49,6 +50,7 @@ StudentList& StudentList::operator=(StudentList&& other) noexcept {
     }
     return *this;
 }
+*/
 
 // Insert student at the end of the list
 void StudentList::insert(int id, const string& name, const string& major, double grade) {
