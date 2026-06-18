@@ -1,4 +1,3 @@
-#pragma once
 #include "FileManager.h"
 class CampMap {
 public:
