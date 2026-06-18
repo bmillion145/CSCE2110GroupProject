@@ -1,7 +1,9 @@
 #ifndef STUDENTNODE_H
 #define STUDENTNODE_H
 
+#include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -14,8 +16,12 @@ struct StudentNode {
     double grade;
     StudentNode* next;
 
-    StudentNode(int i, const string& n, const string& m, double g) 
+    StudentNode(int i, const string& n, const string& m, double g)
         : id(i), name(n), major(m), grade(g), next(nullptr) {}
+
+    string getLine() const {
+        return to_string(id) + " " + name + " " + major + " " + to_string(grade);
+    }
 };
 
 // Linked List class to manage StudentNodes
@@ -73,7 +79,20 @@ public:
     int size() const;
     void clear();
     bool isEmpty() const;
-};
 
+    
+};
+    //handles the retrival and validation of in files
+class FileManager {
+public:
+	//sets the file instream through taking a file name from user input
+	void setFile();
+	//returns the file name of a validated file
+	string getName();
+
+private:
+	ifstream inFile;
+	string fileName;
+};
 #endif
 

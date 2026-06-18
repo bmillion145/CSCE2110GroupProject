@@ -1,0 +1,6 @@
+5001 Daniel CS 3.44
+5002 Scarlett IT 3.71
+5003 Matthew CE 2.88
+5004 Victoria CS 3.93
+5005 Samuel IT 3.36
+5006 Grace CE 3.57
