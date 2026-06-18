@@ -1,5 +1,5 @@
 Group Member Names:
-  Benett Miller
+  Benett Miller - Worked on StudentNode.cpp and StudentNode.h
   Andrew Saul - worked on CampusMap.h, CampusMap.cpp, FileManager.h and FileManager.cpp 
 Compliation Instructions:
 
