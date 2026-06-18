@@ -20,7 +20,7 @@ void CampMap::readMapFile() {
 
 	}
 
-}
+
 	//takes user chordinates and tells them the ID of the current and adjacent locations 
 void CampMap::findMe() {
 	int x = 0, y = 0;
@@ -91,6 +91,7 @@ CampMap::~CampMap() {
 
 	}
 }
+
 //prints out the map
 void CampMap::printMap() {
 	//sets the top collem number indicators
