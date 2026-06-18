@@ -1,6 +1,6 @@
 Group Member Names:
   Benett Miller
-
+  Andrew Saul - worked on CampusMap.h, CampusMap.cpp, FileManager.h and FileManager.cpp 
 Compliation Instructions:
 
 Execution Instructions:
@@ -15,3 +15,11 @@ Description of Implemented Features:
       update students grade by id, print all students, file verification, loading students by file,
       save students by file, as well as helper functions to return the number of students in the list,
       clear the list, and checking if the list is empty.   
+  - CampusMap.h and CampusMap.cpp:
+      delcares and defines a class with functions allowing for the user to input a map file that is then read and stored.
+      This stored map can then be used by calling the functions printMap or the user can find information
+      about their location by calling the findMe function that will display the current area they are in
+      and all adjacent areas.
+    -FileManager.cpp FileManager.h:
+      declares and defines a class with funcations that allow for the program to take a user submited file name and
+      verify if it is a vlaid file path then storing the name for later use.
