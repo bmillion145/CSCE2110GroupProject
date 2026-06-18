@@ -21,14 +21,17 @@ StudentList::StudentList(const StudentList& other) : head(nullptr) {
     }
 }
 
-// Assignment Operator
-StudentList& StudentList::operator=(StudentList&& other) noexcept {
+// Copy Assignment Operator
+StudentList& StudentList::operator=(const StudentList& other) {
     if (this == &other) {
         return *this;
     }
-    clear();                   
-    head = other.head;           
-    other.head = nullptr;
+    clear();
+    StudentNode* current = other.head;
+    while (current != nullptr) {
+        insert(current->id, current->name, current->major, current->grade);
+        current = current->next;
+    }
     return *this;
 }
 
@@ -37,7 +40,8 @@ StudentList::StudentList(StudentList&& other) noexcept : head(other.head) {
     other.head = nullptr;
 }
 
-// Move Assignment Operator
+// Move Assignment Operator (commented out for now)
+/*
 StudentList& StudentList::operator=(StudentList&& other) noexcept {
     if (this != &other) {
         clear();
@@ -46,6 +50,7 @@ StudentList& StudentList::operator=(StudentList&& other) noexcept {
     }
     return *this;
 }
+*/
 
 // Insert student at the end of the list
 void StudentList::insert(int id, const string& name, const string& major, double grade) {
@@ -168,7 +173,25 @@ void StudentList::printList() const {
         cur = cur->next;
     }
 }
+/*
+//loops until a valid file path is entered
+void FileManager::setFile() {
+	bool noFile = true;
+	while (noFile) {
+		cout << "Enter File Name: ";
+		cin >> fileName;
+		inFile.open(fileName);
+		if (inFile.is_open()) {
+			noFile = false;
+		}
+	}
+}
 
+//returns the name of a validated file path
+string FileManager::getName() {
+	return fileName;
+}
+*/
 // load students from a file
 bool StudentList::loadFromFile(const string& filename) {
     ifstream in(filename);
