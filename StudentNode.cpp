@@ -21,14 +21,17 @@ StudentList::StudentList(const StudentList& other) : head(nullptr) {
     }
 }
 
-// Assignment Operator
-StudentList& StudentList::operator=(StudentList&& other) noexcept {
+// Copy Assignment Operator
+StudentList& StudentList::operator=(const StudentList& other) {
     if (this == &other) {
         return *this;
     }
-    clear();                   
-    head = other.head;           
-    other.head = nullptr;
+    clear();
+    StudentNode* current = other.head;
+    while (current != nullptr) {
+        insert(current->id, current->name, current->major, current->grade);
+        current = current->next;
+    }
     return *this;
 }
 
