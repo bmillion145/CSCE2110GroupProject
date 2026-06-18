@@ -1,21 +1,24 @@
-
-#ifndef File_Manager
-#define File_Manager
-
-#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
-//handles the retrival and validation of in files
-class FileManager {
+#pragma once
+#include "FileManager.h"
+class CampMap {
 public:
-	//sets the file instream through taking a file name from user input
-	void setFile();
-	//returns the file name of a validated file
-	string getName();
+	//reads the map file and adds it to a dynamic 2d array
+	void readMapFile();
+	//takes user chordinates and tells them the ID of the current and adjacent locations 
+	void findMe();
+	//decodes the map characters into their repective tile types
+	string deCode(int x, int y);
+	//deleted the dynamicly allocated array
+	~CampMap();
+	//prints out the map
+	void printMap();
+
 
 private:
-	ifstream inFile;
-	string fileName;
+	int numOfRow = 0, numOfCol = 0;
+	//2d array 
+	char** gridMap;
+	//in file and file system 
+	ifstream rFile;
+	FileManager readFile;
 };
-#endif
