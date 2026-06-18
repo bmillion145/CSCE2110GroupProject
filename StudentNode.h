@@ -45,8 +45,8 @@ public:
     // Move Constructor
     StudentList(StudentList&& other) noexcept;
 
-    // Move Assignment Operator
-    StudentList& operator=(StudentList&& other) noexcept;
+    // Move Assignment Operator (commented out for now)
+    // StudentList& operator=(StudentList&& other) noexcept;
 
     // Insert student at the end of the list
     void insert(int id, const string& name, const string& major, double grade);
