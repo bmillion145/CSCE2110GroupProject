@@ -106,7 +106,7 @@ void studentManagementMenu(StudentList& studentList){
         cout << "4. Update Grade\n";
         cout << "5. Print All Students\n";
         cout << "6. Read students from file\n";
-        cout << "6. Return to Main Menu\n";
+        cout << "7. Return to Main Menu\n";
         cout << "\nEnter Choice: ";
 
         int input;
