@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 using namespace std;
-//handles the retrival and validation of in files
+//handles the retrieval and validation of in files
 class FileManager {
 public:
 	//sets the file instream through taking a file name from user input
