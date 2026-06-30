@@ -1,17 +1,17 @@
 #include "QueueSystem.h"
 
 
-void AdvisngQueue::addToQueue() {
+void AdvisingQueue::addToQueue() {
 	student tempS;
 	cout << "Please enter student ID: ";
 	cin >> tempS.id;
-	cout << "Please enter advising issue: ";
+	cout << "Please enter advissing issue: ";
 	getline(cin, tempS.issue);
 	advQueue.push(tempS);
 	cout << "Student was added \n" << advQueue.size()+1 << ": place in queue\n";
 }
 
-void AdvisngQueue::processNext() {
+void AdvisingQueue::processNext() {
 	cout << "Student ID: " << advQueue.front().id << endl;
 	cout << "Advising issue: " << advQueue.front().issue << endl;
 	cout << "was the issue resullved |y| |n| : ";
@@ -22,15 +22,15 @@ void AdvisngQueue::processNext() {
 		cout << "Studnet was removed form queue\n";
 	}
 	else if ( choice == 'n'|| choice == 'N') {
-		cout << "Keeping student at front of queue\n";
+		cout << "keeping student at front of queue\n";
 	}
 }
 
-int AdvisngQueue::getQueueSize() {
+int AdvisingQueue::getQueueSize() {
 	return advQueue.size() + 1;
 }
 
-void AdvisngQueue::printAll() {
+void AdvisingQueue::printAll() {
 	queue<student> tempQueue;
 	tempQueue = advQueue;
 	cout << "Printing all issues in advising queue: \n";
