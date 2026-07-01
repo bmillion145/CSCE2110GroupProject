@@ -193,8 +193,45 @@ void studentManagementMenu(StudentList& studentList){
  } while (true);
    
 }
-void advisingQueueMenu()
-{
-    cout << "\nAdvising Queue Menu\n";
-    // Implement advising queue functionality here
+void advisingQueueMenu(AdvisingQueue& advisingQueue){
+    do{
+        cout << "\nAdvising Queue Menu\n";
+        cout << "1. Add Student to Queue\n";
+        cout << "2. Remove Student from Queue\n";
+        cout << "3. Print Queue\n";
+        cout << "4. Print all Students\n";
+        cout << "5. Return to Main Menu\n";
+        cout << "\nEnter Choice: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Add student to queue
+                advisingQueue.addToQueue();
+                break;
+
+            case 2:
+                // Remove student from queue
+                advisingQueue.processNext();
+                break;
+
+            case 3:
+                // Print queue
+                cout << "Queue Size: " << advisingQueue.getQueueSize() << "\n";
+                break;
+
+            case 4:
+                // Print all students
+                advisingQueue.printAll();
+                break;
+
+            case 5:
+                return;
+
+            default:
+                cout << "\nInvalid Choice. Try Again.\n";
+        }
+    } while (true);
 }
