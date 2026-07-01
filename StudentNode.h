@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <stdexcept>
 
 using namespace std;
 
@@ -20,7 +23,9 @@ struct StudentNode {
         : id(i), name(n), major(m), grade(g), next(nullptr) {}
 
     string getLine() const {
-        return to_string(id) + " " + name + " " + major + " " + to_string(grade);
+        ostringstream oss;
+        oss << id << " " << name << " " << major << " " << fixed << setprecision(2) << grade;
+        return oss.str();
     }
 };
 
@@ -45,8 +50,8 @@ public:
     // Move Constructor
     StudentList(StudentList&& other) noexcept;
 
-    // Move Assignment Operator (commented out for now)
-    // StudentList& operator=(StudentList&& other) noexcept;
+    // Move Assignment Operator
+    StudentList& operator=(StudentList&& other) noexcept;
 
     // Insert student at the end of the list
     void insert(int id, const string& name, const string& major, double grade);
@@ -58,8 +63,8 @@ public:
     void remove(const string& name);
 
     // Search for a student by ID (with overloading for const correctness)
-    StudentNode* search(int id);
-    StudentNode* search(int id) const;
+    StudentNode*       search(int id);
+    const StudentNode* search(int id) const;
 
     // Search for a student by name (with overloading for const correctness)
     StudentNode*       search(const string& name);
@@ -82,17 +87,7 @@ public:
 
 
 };
-    //handles the retrival and validation of in files
-class FileManager {
-public:
-	//sets the file instream through taking a file name from user input
-	void setFile();
-	//returns the file name of a validated file
-	string getName();
+#include "FileManager.h"
 
-private:
-	ifstream inFile;
-	string fileName;
-};
 #endif
 

@@ -2,7 +2,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <iomanip>
+#include <stdexcept>
+#include <limits>
 
 
 using namespace std;
@@ -40,8 +43,7 @@ StudentList::StudentList(StudentList&& other) noexcept : head(other.head) {
     other.head = nullptr;
 }
 
-// Move Assignment Operator (commented out for now)
-/*
+// Move Assignment Operator
 StudentList& StudentList::operator=(StudentList&& other) noexcept {
     if (this != &other) {
         clear();
@@ -50,15 +52,24 @@ StudentList& StudentList::operator=(StudentList&& other) noexcept {
     }
     return *this;
 }
-*/
+
 
 // Insert student at the end of the list
 void StudentList::insert(int id, const string& name, const string& major, double grade) {
-    StudentNode* node = new StudentNode(id, name, major, grade);
+    if (id <= 0)
+        throw std::invalid_argument("Student ID must be a positive integer.");
+    if (name.empty())
+        throw std::invalid_argument("Student name cannot be empty.");
+    if (major.empty())
+        throw std::invalid_argument("Student major cannot be empty.");
+    if (grade < 0.0 || grade > 100.0)
+        throw std::out_of_range("Grade must be between 0.0 and 100.0.");
+
+    StudentNode* node = new StudentNode(id, name, major, grade); // throws std::bad_alloc on failure
     if (head == nullptr) {
         head = node;
         return;
-    } 
+    }
     StudentNode* current = head;
     while (current->next != nullptr) {
         current = current->next;
@@ -116,15 +127,15 @@ StudentNode* StudentList::search(int id) {
     return nullptr; 
 }
 
-StudentNode* StudentList::search(int id) const {
-    StudentNode* current = head;
+const StudentNode* StudentList::search(int id) const {
+    const StudentNode* current = head;
     while (current != nullptr) {
         if (current->id == id) {
-            return current; 
+            return current;
         }
         current = current->next;
     }
-    return nullptr; 
+    return nullptr;
 }
 
 // Search for a student by name (non-const and const version)
@@ -152,10 +163,12 @@ const StudentNode* StudentList::search(const string& name) const {
 
 // Update a student's grade by ID
 void StudentList::updateGrade(int id, double newGrade) {
+    if (newGrade < 0.0 || newGrade > 100.0)
+        throw std::out_of_range("Grade must be between 0.0 and 100.0.");
     StudentNode* node = search(id);
-    if (node != nullptr) {
-        node->grade = newGrade;
-    }
+    if (node == nullptr)
+        throw std::runtime_error("Student with ID " + to_string(id) + " not found.");
+    node->grade = newGrade;
 }
 
 // Print all students 
@@ -176,15 +189,24 @@ void StudentList::printList() const {
 
 //loops until a valid file path is entered
 void FileManager::setFile() {
-	bool noFile = true;
-	while (noFile) {
-		cout << "Enter File Name: ";
-		cin >> fileName;
-		inFile.open(fileName);
-		if (inFile.is_open()) {
-			noFile = false;
-		}
-	}
+    while (true) {
+        cout << "Enter File Name: ";
+        if (!getline(cin, fileName)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cerr << "Input error. Please try again.\n";
+            continue;
+        }
+        if (fileName.empty()) {
+            cerr << "File name cannot be empty. Please try again.\n";
+            continue;
+        }
+        inFile.open(fileName);
+        if (inFile.is_open()) {
+            break;
+        }
+        cerr << "Could not open file \"" << fileName << "\". Please try again.\n";
+    }
 }
 
 //returns the name of a validated file path
@@ -196,17 +218,34 @@ string FileManager::getName() {
 bool StudentList::loadFromFile(const string& filename) {
     ifstream in(filename);
     if (!in) {
-        cerr << "Error opening file: " << filename << endl;
+        cerr << "Error opening file: " << filename << "\n";
         return false;
     }
     clear();
-    
-    // Read each line and parse student data
-    int id;
-    string name, major;
-    double grade;
-    while (in >> id >> name >> major >> grade) {
-        insert(id, name, major, grade);
+
+    string line;
+    int lineNum = 0;
+    while (getline(in, line)) {
+        ++lineNum;
+        if (line.empty()) continue;
+        istringstream iss(line);
+        int id;
+        string name, major;
+        double grade;
+        if (!(iss >> id >> name >> major >> grade)) {
+            cerr << "Warning: skipping malformed record on line " << lineNum << ": \"" << line << "\"\n";
+            continue;
+        }
+        try {
+            insert(id, name, major, grade);
+        } catch (const exception& e) {
+            cerr << "Warning: skipping invalid record on line " << lineNum << ": " << e.what() << "\n";
+        }
+    }
+
+    if (in.bad()) {
+        cerr << "Error: I/O failure while reading " << filename << "\n";
+        return false;
     }
     return true;
 }
@@ -215,18 +254,23 @@ bool StudentList::loadFromFile(const string& filename) {
 bool StudentList::saveToFile(const string& filename) const {
     ofstream out(filename);
     if (!out) {
-        cerr << "Error opening file: " << filename << endl;
+        cerr << "Error opening file: " << filename << "\n";
         return false;
     }
-    StudentNode* current = head;
+    const StudentNode* current = head;
     while (current != nullptr) {
-        out << current->id << " " 
-            << current->name << " " 
-            << current->major << " " 
+        out << current->id << " "
+            << current->name << " "
+            << current->major << " "
             << fixed << setprecision(2) << current->grade << "\n";
+        if (out.fail()) {
+            cerr << "Error: write failure while saving to " << filename << "\n";
+            return false;
+        }
         current = current->next;
     }
-    return true;
+    out.flush();
+    return out.good();
 }
 
 // helper functions
