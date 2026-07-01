@@ -7,6 +7,8 @@ public:
 	void findMe();
 	//decodes the map characters into their repective tile types
 	string deCode(int x, int y);
+	//returns the number of buildings libraries and clasrooms
+	void mapStats();
 	//deleted the dynamicly allocated array
 	~CampMap();
 	//prints out the map
@@ -14,6 +16,7 @@ public:
 
 
 private:
+	bool mapFlag = false;
 	int numOfRow = 0, numOfCol = 0;
 	//2d array 
 	char** gridMap;
