@@ -187,33 +187,6 @@ void StudentList::printList() const {
     }
 }
 
-//loops until a valid file path is entered
-void FileManager::setFile() {
-    while (true) {
-        cout << "Enter File Name: ";
-        if (!getline(cin, fileName)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cerr << "Input error. Please try again.\n";
-            continue;
-        }
-        if (fileName.empty()) {
-            cerr << "File name cannot be empty. Please try again.\n";
-            continue;
-        }
-        inFile.open(fileName);
-        if (inFile.is_open()) {
-            break;
-        }
-        cerr << "Could not open file \"" << fileName << "\". Please try again.\n";
-    }
-}
-
-//returns the name of a validated file path
-string FileManager::getName() {
-	return fileName;
-}
-
 // load students from a file
 bool StudentList::loadFromFile(const string& filename) {
     ifstream in(filename);
