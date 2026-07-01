@@ -197,10 +197,9 @@ void advisingQueueMenu(AdvisingQueue& advisingQueue){
     do{
         cout << "\nAdvising Queue Menu\n";
         cout << "1. Add Student to Queue\n";
-        cout << "2. Remove Student from Queue\n";
-        cout << "3. Print Queue\n";
-        cout << "4. Print all Students\n";
-        cout << "5. Return to Main Menu\n";
+        cout << "2. Complete Request\n";
+        cout << "3. Display Current\n";
+        cout << "4. Return to Main Menu\n";
         cout << "\nEnter Choice: ";
 
         int choice;
@@ -213,21 +212,18 @@ void advisingQueueMenu(AdvisingQueue& advisingQueue){
                 break;
 
             case 2:
-                // Remove student from queue
+                // Complete request
                 advisingQueue.processNext();
+                cout<<"Student remaining in queue: "<<advisingQueue.getQueueSize()<<"\n";
                 break;
 
             case 3:
-                // Print queue
+                // Display current student
                 cout << "Queue Size: " << advisingQueue.getQueueSize() << "\n";
                 break;
 
             case 4:
-                // Print all students
-                advisingQueue.printAll();
-                break;
-
-            case 5:
+                // Return to Main Menu
                 return;
 
             default:
