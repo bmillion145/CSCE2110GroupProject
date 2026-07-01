@@ -76,6 +76,9 @@ public:
     // Print all students in the list
     void printList() const; 
 
+    // Prints average grade of all students in the list
+    void averageGrade() const;
+
     // File I/O operations
     bool loadFromFile(const string& filename = "students.txt");
     bool saveToFile(const string& filename = "students.txt") const;
