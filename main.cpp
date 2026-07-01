@@ -103,20 +103,25 @@ void campusMapMenu(CampMap& campusMap)
 void studentManagementMenu(StudentList& studentList){
    do{ 
         cout << "\nStudent Management Menu\n";
-        cout << "1. Add Student\n";
-        cout << "2. Remove Student\n";
-        cout << "3. Search Student\n";
-        cout << "4. Update Grade\n";
-        cout << "5. Print All Students\n";
-        cout << "6. Return to Main Menu\n";
+        cout << "----------------------------------------\n";
+        cout<<"1. Load students from file\n";
+        cout << "2. Add Student\n";
+        cout << "3. Remove Student\n";
+        cout << "4. Search Student\n";
+        cout << "5. Update Grade\n";
+        cout << "6. Print All Students\n";
+        cout << "7. Return to Main Menu\n";
         cout << "\nEnter Choice: ";
 
         int input;
         cin >> input;
 
        switch (input) {
+
+    case 1:
+        studentList.loadFromFile();
             
-    case 1:{
+    case 2:{
         //adding student
         int id;
         string name, major;
@@ -139,7 +144,7 @@ void studentManagementMenu(StudentList& studentList){
         break;
     }
 
-    case 2:{
+    case 3:{
         // removing student by ID
         int removeId;
         cout << "Enter ID of student to remove: ";
@@ -149,7 +154,7 @@ void studentManagementMenu(StudentList& studentList){
         break;
     }
 
-    case 3:{
+    case 4:{
         // searching for student by ID
         int searchId;
         cout << "Enter ID of student to search: ";
@@ -166,7 +171,7 @@ void studentManagementMenu(StudentList& studentList){
         break;
     }   
 
-    case 4:{
+    case 5:{
         //updates grades
         int updateId;
         double newGrade;
@@ -182,11 +187,11 @@ void studentManagementMenu(StudentList& studentList){
         }
         break;
     }
-    case 5:
+    case 6:
         // printing all students
         studentList.printList();
         break;
-    case 6:
+    case 7:
         return;
     default:
         cout << "\nInvalid Choice. Try Again.\n";
