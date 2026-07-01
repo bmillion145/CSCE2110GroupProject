@@ -105,7 +105,8 @@ void studentManagementMenu(StudentList& studentList){
         cout << "3. Search Student\n";
         cout << "4. Update Grade\n";
         cout << "5. Print All Students\n";
-        cout << "6. Return to Main Menu\n";
+        cout << "6. Read students from file\n";
+        cout << "7. Return to Main Menu\n";
         cout << "\nEnter Choice: ";
 
         int input;
@@ -183,7 +184,14 @@ void studentManagementMenu(StudentList& studentList){
         // printing all students
         studentList.printList();
         break;
-    case 6:
+    case 6:{
+          string fileName;
+         cout << "Enter file name: ";
+         cin >> fileName;
+         studentList.loadFromFile(fileName); 
+        break;
+    }
+    case 7:
         return;
     default:
         cout << "\nInvalid Choice. Try Again.\n";
