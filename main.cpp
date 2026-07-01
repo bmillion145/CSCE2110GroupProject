@@ -8,6 +8,7 @@ using namespace std;
 void campusMapMenu(CampMap& campusMap);
 void studentManagementMenu(StudentList& studentList);
 void advisingQueueMenu(AdvisingQueue& advisingQueue);
+void campusStatisticsMenu(StudentList& studentList, CampMap& campusMap, AdvisingQueue& advisingQueue);
 
 int main(){
      CampMap campusMap;
@@ -23,7 +24,7 @@ int main(){
         cout << "1. Campus Map\n";
         cout << "2. Student Management\n";
         cout << "3. Advising Queue\n";
-        cout << "4. possible function\n";
+        cout << "4. Campus Statistics\n";
         cout << "5. Exit\n";
         cout << "\nEnter Choice: ";
 
@@ -44,7 +45,7 @@ int main(){
                 break;
 
             case 4:
-                //possiblefuction();
+                campusStatisticsMenu(studentList, campusMap, advisingQueue);
                 break;
 
             case 5:
@@ -231,4 +232,14 @@ void advisingQueueMenu(AdvisingQueue& advisingQueue){
                 cout << "\nInvalid Choice. Try Again.\n";
         }
     } while (true);
+}
+
+void campusStatisticsMenu(StudentList& studentList, CampMap& campusMap, AdvisingQueue& advisingQueue) {
+    cout<<"Campus Current Statistics:\n";
+    cout<<"Total Students: "<<studentList.size()<<endl;
+    studentList.averageGrade();
+    cout<<"Current Pending Requests in Advising Queue: "<<advisingQueue.getQueueSize()<<"\n";
+    cout<<"Map Statistics: \n";
+    campusMap.mapStats();
+        
 }
