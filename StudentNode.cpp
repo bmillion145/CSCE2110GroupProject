@@ -206,17 +206,15 @@ void StudentList::averageGrade() const {
 }
 
 // load students from a file
-bool StudentList::loadFromFile(const string& filename) {
-    ifstream in(filename);
-    if (!in) {
-        cerr << "Error opening file: " << filename << "\n";
-        return false;
-    }
-    clear();
+bool StudentList::loadFromFile() {
+    
+    readFile.setFile();
+    rFile.open(readFile.getName());
+
 
     string line;
     int lineNum = 0;
-    while (getline(in, line)) {
+    while (getline(rFile, line)) {
         ++lineNum;
         if (line.empty()) continue;
         istringstream iss(line);
@@ -234,8 +232,8 @@ bool StudentList::loadFromFile(const string& filename) {
         }
     }
 
-    if (in.bad()) {
-        cerr << "Error: I/O failure while reading " << filename << "\n";
+    if (rFile.bad()) {
+        cerr << "Error: I/O failure while reading " << readFile.getName() << "\n";
         return false;
     }
     return true;

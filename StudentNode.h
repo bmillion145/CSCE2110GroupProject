@@ -1,6 +1,8 @@
 #ifndef STUDENTNODE_H
 #define STUDENTNODE_H
 
+#include "FileManager.h"
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -80,7 +82,7 @@ public:
     void averageGrade() const;
 
     // File I/O operations
-    bool loadFromFile(const string& filename = "students.txt");
+    bool loadFromFile();
     bool saveToFile(const string& filename = "students.txt") const;
 
     // Helper functions
@@ -88,9 +90,12 @@ public:
     void clear();
     bool isEmpty() const;
 
+    ifstream rFile;
+    FileManager readFile;
+
 
 };
-//#include "FileManager.h"
+
 
 #endif
 
