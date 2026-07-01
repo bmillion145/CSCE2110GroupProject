@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <stdexcept>
 
 using namespace std;
 
@@ -20,7 +23,9 @@ struct StudentNode {
         : id(i), name(n), major(m), grade(g), next(nullptr) {}
 
     string getLine() const {
-        return to_string(id) + " " + name + " " + major + " " + to_string(grade);
+        ostringstream oss;
+        oss << id << " " << name << " " << major << " " << fixed << setprecision(2) << grade;
+        return oss.str();
     }
 };
 
@@ -58,8 +63,8 @@ public:
     void remove(const string& name);
 
     // Search for a student by ID (with overloading for const correctness)
-    StudentNode* search(int id);
-    StudentNode* search(int id) const;
+    StudentNode*       search(int id);
+    const StudentNode* search(int id) const;
 
     // Search for a student by name (with overloading for const correctness)
     StudentNode*       search(const string& name);
@@ -71,6 +76,9 @@ public:
     // Print all students in the list
     void printList() const; 
 
+    // Prints average grade of all students in the list
+    void averageGrade() const;
+
     // File I/O operations
     bool loadFromFile(const string& filename = "students.txt");
     bool saveToFile(const string& filename = "students.txt") const;
@@ -80,18 +88,8 @@ public:
     void clear();
     bool isEmpty() const;
 
-    
-};
-    //handles the retrival and validation of in files
-/*class FileManager {
-public:
-	//sets the file instream through taking a file name from user input
-	void setFile();
-	//returns the file name of a validated file
-	string getName();
 
-private:
-	ifstream inFile;
-	string fileName;
-};*/
+};
+//#include "FileManager.h"
+
 #endif

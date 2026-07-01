@@ -21,17 +21,18 @@ void CampMap::readMapFile() {
 	}
 }
 
-	//takes user coordinates and tells them the ID of the current and adjacent locations 
-	void CampMap::findMe() {
+//takes user coordinates and tells them the ID of the current and adjacent locations 
+void CampMap::findMe() {
+	if (mapFlag) {
 		int x = 0, y = 0;
 		bool blocked = true;
 		//taking input for user coordinates
 		while (blocked) {
-			cout << "Ender X and Y coordinate respectively: ";
+			cout << "Enter X and Y coordinates respectively: ";
 			cin >> x >> y;
 			// checking to make sure a valid set was entered
 			if (deCode(x, y) == "Blocked") {
-				cout << "Area entered is marked as blocked, please enter a valid chordiante set\n";
+				cout << "Area entered is marked as blocked, please enter a valid coordinate set\n";
 			}
 			else if (deCode(x, y) == "Unknown" || deCode(x, y) == "Off Map") {
 				cout << "Area is invalid or off the designated map grid, please enter a valid coordinate set\n";
@@ -45,12 +46,17 @@ void CampMap::readMapFile() {
 
 		//sends the chords to deCode to get the names of location specified by the characters in 2d array
 		cout << "Location: " << deCode(x, y) << endl;
-		cout << "Up: " << deCode(x , y -1) << endl;
-		cout << "Down: " << deCode(x , y +1 ) << endl;
-		cout << "Left: " << deCode(x -1 , y ) << endl;
-		cout << "Right: " << deCode(x +1, y ) << endl;
+		cout << "Up: " << deCode(x, y - 1) << endl;
+		cout << "Down: " << deCode(x, y + 1) << endl;
+		cout << "Left: " << deCode(x - 1, y) << endl;
+		cout << "Right: " << deCode(x + 1, y) << endl;
 	}
-	//decodes the map characters into their respective tile types
+	else {
+		cout << "No map file loaded please load a map\n";
+	}
+}
+
+//decodes the map characters into their respective tile types
 	string CampMap::deCode(int x, int y) {
 		char toDeCode;
 		//checks to makes sure value is inside of the map stops out of range errors
@@ -85,17 +91,19 @@ void CampMap::readMapFile() {
 		return "Unknown";
 	}
 
-	//deleted the dynamically allocated array
-	CampMap::~CampMap() {
-		for (int i = 0; i < numOfRow; ++i) {
-			delete[] gridMap[i];
-			delete[] gridMap;
 
-		}
+//deleted the dynamically allocated array
+CampMap::~CampMap() {
+	for (int i = 0; i < numOfRow; ++i) {
+		delete[] gridMap[i];
+		delete[] gridMap;
+
 	}
+}
 
-	//prints out the map
-	void CampMap::printMap() {
+//prints out the map
+void CampMap::printMap() {
+	if (mapFlag) {
 		//sets the top column number indicators
 		cout << "  ";
 		for (int i = 0; i < numOfCol; ++i) {
@@ -111,6 +119,33 @@ void CampMap::readMapFile() {
 			}
 			cout << endl;
 		}
-
-
 	}
+	else {
+		cout << "No map file loaded, please load a map\n";
+	}
+
+}
+
+void CampMap::mapStats() {
+	if (mapFlag) {
+		int numB = 0, numC = 0, numL = 0;
+
+		for (int i = 0; i < numOfRow; ++i) {
+			for (int j = 0; j < numOfCol; ++j) {
+				if (gridMap[i][j] == 'B') {
+					++numB;
+				}
+				else if (gridMap[i][j] == 'C') {
+					++numC;
+				}
+				else if (gridMap[i][j] == 'L') {
+					++numL;
+				};
+			}
+		}
+		cout << "Number of buildings: " << numB << " Number of classrooms: " << numC << " number of libraries: " << numL << endl;
+	}
+	else {
+		cout << "No map file loaded please load a map\n";
+	}
+}
