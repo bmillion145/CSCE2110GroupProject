@@ -3,31 +3,34 @@
 
 void AdvisingQueue::addToQueue() {
 	student tempS;
+	string inIssue;
 	cout << "Please enter student ID: ";
 	cin >> tempS.id;
+	cin.ignore();
 	cout << "Please enter advissing issue: ";
-	getline(cin, tempS.issue);
+	getline(cin, inIssue);
+	tempS.issue = inIssue;
 	advQueue.push(tempS);
-	cout << "Student was added \n" << advQueue.size()+1 << ": place in queue\n";
+	cout << "Student was added " << advQueue.size() << ": place in queue\n";
 }
 
 void AdvisingQueue::processNext() {
 	cout << "Student ID: " << advQueue.front().id << endl;
 	cout << "Advising issue: " << advQueue.front().issue << endl;
-	cout << "was the issue resullved |y| |n| : ";
+	cout << "was the issue resolved |y| |n| : ";
 	char choice;
 	cin >> choice;
 	if (choice == 'y' || choice == 'Y') {
 		advQueue.pop();
-		cout << "Studnet was removed form queue\n";
+		cout << "Student was removed form queue\n";
 	}
-	else if ( choice == 'n'|| choice == 'N') {
+	else if (choice == 'n' || choice == 'N') {
 		cout << "keeping student at front of queue\n";
 	}
 }
 
 int AdvisingQueue::getQueueSize() {
-	return advQueue.size() + 1;
+	return advQueue.size();
 }
 
 void AdvisingQueue::printAll() {
@@ -35,7 +38,8 @@ void AdvisingQueue::printAll() {
 	tempQueue = advQueue;
 	cout << "Printing all issues in advising queue: \n";
 	while (!tempQueue.empty()) {
-		cout << "student Id: " << tempQueue.front().id <<endl;
-		cout << "Student issue: " << tempQueue.front().issue << endl <<endl;
+		cout << "student Id: " << tempQueue.front().id << endl;
+		cout << "Student issue: " << tempQueue.front().issue << endl << endl;
+		tempQueue.pop();
 	}
 }
