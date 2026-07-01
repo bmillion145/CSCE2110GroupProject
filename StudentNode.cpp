@@ -187,6 +187,24 @@ void StudentList::printList() const {
     }
 }
 
+// prints average grade of all students in the list
+void StudentList::averageGrade() const {
+    if (head == nullptr) {
+        cout << "Average Grade: N/A (list is empty)\n";
+        return;
+    }
+    double total = 0.0;
+    int count = 0;
+    StudentNode* current = head;
+    while (current != nullptr) {
+        total += current->grade;
+        count++;
+        current = current->next;
+    }
+    double average = total / count;
+    cout << "Average Grade: " << fixed << setprecision(2) << average << "\n";
+}
+
 // load students from a file
 bool StudentList::loadFromFile(const string& filename) {
     ifstream in(filename);
