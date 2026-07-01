@@ -19,18 +19,23 @@ void AdvisingQueue::addToQueue() {
 //processes the student in the queue by displaying info and removing them from queue
 void AdvisingQueue::processNext() {
 	//printing student information
-	cout << "Student ID: " << advQueue.front().id << endl;
-	cout << "Advising issue: " << advQueue.front().issue << endl;
-	//asking the user if the issue was resolved if yes, the student is removed from the queue
-	cout << "was the issue resolved |y| |n| : ";
-	char choice;
-	cin >> choice;
-	if (choice == 'y' || choice == 'Y') {
-		advQueue.pop();
-		cout << "Student was removed form queue\n";
+	if (!advQueue.empty()) {
+		cout << "Student ID: " << advQueue.front().id << endl;
+		cout << "Advising issue: " << advQueue.front().issue << endl;
+		//asking the user if the issue was resolved if yes, the student is removed from the queue
+		cout << "was the issue resolved |y| |n| : ";
+		char choice;
+		cin >> choice;
+		if (choice == 'y' || choice == 'Y') {
+			advQueue.pop();
+			cout << "Student was removed form queue\n";
+		}
+		else {
+			cout << "Keeping student at front of queue\n";
+		}
 	}
-	else if (choice == 'n' || choice == 'N') {
-		cout << "Keeping student at front of queue\n";
+	else {
+		cout << "Queue is empty\n";
 	}
 }
 //returns the size of the queue
@@ -39,12 +44,17 @@ int AdvisingQueue::getQueueSize() {
 }
 //prints all the information of each student in the queue
 void AdvisingQueue::printAll() {
-	queue<student> tempQueue;
-	tempQueue = advQueue;
-	cout << "Printing all issues in advising queue: \n";
-	while (!tempQueue.empty()) {
-		cout << "student Id: " << tempQueue.front().id << endl;
-		cout << "Student issue: " << tempQueue.front().issue << endl << endl;
-		tempQueue.pop();
+	if (!advQueue.empty()) {
+		queue<student> tempQueue;
+		tempQueue = advQueue;
+		cout << "Printing all issues in advising queue: \n";
+		while (!tempQueue.empty()) {
+			cout << "student Id: " << tempQueue.front().id << endl;
+			cout << "Student issue: " << tempQueue.front().issue << endl << endl;
+			tempQueue.pop();
+		}
+	}
+	else {
+		cout << "Queue is empty\n";
 	}
 }
