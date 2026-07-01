@@ -219,7 +219,8 @@ void advisingQueueMenu(AdvisingQueue& advisingQueue){
 
             case 3:
                 // Display current student
-                cout << "Queue Size: " << advisingQueue.getQueueSize() << "\n";
+                cout << "Current pending requests in the queue: " << advisingQueue.getQueueSize() << "\n";
+                advisingQueue.printAll();
                 break;
 
             case 4:
