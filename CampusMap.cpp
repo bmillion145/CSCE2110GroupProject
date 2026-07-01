@@ -17,7 +17,7 @@ void CampMap::readMapFile() {
 		for (int j = 0; j < numOfCol; ++j) {
 			rFile >> gridMap[i][j];
 		}
-
+		mapFlag = true;
 	}
 }
 
