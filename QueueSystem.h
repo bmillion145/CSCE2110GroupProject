@@ -10,6 +10,6 @@ public:
 	int getQueueSize();
 	void printAll();
 private:
-	struct student { int id = 0; string issue = 0; };
+	struct student { int id = 0; string issue = ""; };
 	queue<student> advQueue;
 };
