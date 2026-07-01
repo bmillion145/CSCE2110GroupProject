@@ -1,16 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include "CampusMap.h"
+#include "QueueSystem.h"
 #include "StudentNode.h"
 using namespace std;
 
 void campusMapMenu(CampMap& campusMap);
 void studentManagementMenu(StudentList& studentList);
-void advisingQueueMenu();
+void advisingQueueMenu(AdvisingQueue& advisingQueue);
 
 int main(){
      CampMap campusMap;
      StudentList studentList;
+     AdvisingQueue advisingQueue;
      int choice;
 
     do
@@ -38,7 +40,7 @@ int main(){
                 break;
 
             case 3:
-                advisingQueueMenu();
+                advisingQueueMenu(advisingQueue);
                 break;
 
             case 4:
@@ -105,8 +107,7 @@ void studentManagementMenu(StudentList& studentList){
         cout << "3. Search Student\n";
         cout << "4. Update Grade\n";
         cout << "5. Print All Students\n";
-        cout << "6. Read students from file\n";
-        cout << "7. Return to Main Menu\n";
+        cout << "6. Return to Main Menu\n";
         cout << "\nEnter Choice: ";
 
         int input;
@@ -184,14 +185,7 @@ void studentManagementMenu(StudentList& studentList){
         // printing all students
         studentList.printList();
         break;
-    case 6:{
-          string fileName;
-         cout << "Enter file name: ";
-         cin >> fileName;
-         studentList.loadFromFile(fileName); 
-        break;
-    }
-    case 7:
+    case 6:
         return;
     default:
         cout << "\nInvalid Choice. Try Again.\n";
@@ -199,8 +193,45 @@ void studentManagementMenu(StudentList& studentList){
  } while (true);
    
 }
-void advisingQueueMenu()
-{
-    cout << "\nAdvising Queue Menu\n";
-    // Implement advising queue functionality here
+void advisingQueueMenu(AdvisingQueue& advisingQueue){
+    do{
+        cout << "\nAdvising Queue Menu\n";
+        cout << "1. Add Student to Queue\n";
+        cout << "2. Remove Student from Queue\n";
+        cout << "3. Print Queue\n";
+        cout << "4. Print all Students\n";
+        cout << "5. Return to Main Menu\n";
+        cout << "\nEnter Choice: ";
+
+        int choice;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Add student to queue
+                advisingQueue.addToQueue();
+                break;
+
+            case 2:
+                // Remove student from queue
+                advisingQueue.processNext();
+                break;
+
+            case 3:
+                // Print queue
+                cout << "Queue Size: " << advisingQueue.getQueueSize() << "\n";
+                break;
+
+            case 4:
+                // Print all students
+                advisingQueue.printAll();
+                break;
+
+            case 5:
+                return;
+
+            default:
+                cout << "\nInvalid Choice. Try Again.\n";
+        }
+    } while (true);
 }
