@@ -1,20 +1,21 @@
-#ifndef File_Manager
-#define File_Manager
-
 #include <iostream>
-#include <fstream>
+#include <queue>
 #include <string>
 using namespace std;
-//handles the retrieval and validation of in files
-class FileManager {
-public:
-	//sets the file instream through taking a file name from user input
-	void setFile();
-	//returns the file name of a validated file
-	string getName();
 
+class AdvisingQueue {
+public:
+	//adds student to queue
+	void addToQueue();
+	//prints next in queue data and removes the student from queue
+	void processNext();
+	//returns the queue size
+	int getQueueSize();
+	//prints all information of each student in queue
+	void printAll();
 private:
-	ifstream inFile;
-	string fileName;
+	//defines what a student is
+	struct student { int id = 0; string issue = ""; };
+	//declaring queue stl
+	queue<student> advQueue;
 };
-#endif
