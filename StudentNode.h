@@ -55,7 +55,7 @@ public:
     // Move Assignment Operator
     StudentList& operator=(StudentList&& other) noexcept;
 
-    // Insert student at the end of the list
+    // Insert student, keeping the list sorted in ascending order by id
     void insert(int id, const string& name, const string& major, double grade);
 
     // Remove student by ID
