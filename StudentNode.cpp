@@ -54,7 +54,7 @@ StudentList& StudentList::operator=(StudentList&& other) noexcept {
 }
 
 
-// Insert student at the end of the list
+// Insert student in ascending order by id
 void StudentList::insert(int id, const string& name, const string& major, double grade) {
     if (id <= 0)
         throw std::invalid_argument("Student ID must be a positive integer.");
@@ -66,14 +66,16 @@ void StudentList::insert(int id, const string& name, const string& major, double
         throw std::out_of_range("Grade must be between 0.0 and 100.0.");
 
     StudentNode* node = new StudentNode(id, name, major, grade); // throws std::bad_alloc on failure
-    if (head == nullptr) {
+    if (head == nullptr || id < head->id) {
+        node->next = head;
         head = node;
         return;
     }
     StudentNode* current = head;
-    while (current->next != nullptr) {
+    while (current->next != nullptr && current->next->id <= id) {
         current = current->next;
     }
+    node->next = current->next;
     current->next = node;
 }
 
