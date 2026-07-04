@@ -120,7 +120,7 @@ void studentManagementMenu(StudentList& studentList){
 
     case 1:
         studentList.loadFromFile();
-            
+        break;
     case 2:{
         //adding student
         int id;
