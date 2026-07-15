@@ -31,9 +31,6 @@ target/
 Thumbs.db
 desktop.ini
 
-# ---- Claude / local tooling ----
-.claude/
-
 # ---- Logs / temp ----
 *.log
 *.tmp
